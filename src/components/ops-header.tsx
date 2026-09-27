@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useRouterState } from "@tanstack/react-router";
 
 const navItems = [
   { to: "/" as const, label: "Board" },
@@ -7,6 +7,8 @@ const navItems = [
 ];
 
 export function OpsHeader() {
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+
   return (
     <header className="sticky top-0 z-10 border-b border-line bg-ink/70 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-[1400px] items-center gap-8 px-6">
@@ -26,17 +28,21 @@ export function OpsHeader() {
           />
         </div>
         <nav className="hidden items-center gap-6 text-sm text-mist md:flex">
-          {navItems.map((item) => (
-            <Link
-              key={item.to}
-              to={item.to}
-              className={({ isActive }) =>
-                isActive ? "text-frost" : "transition hover:text-signal"
-              }
-            >
-              {item.label}
-            </Link>
-          ))}
+          {navItems.map((item) => {
+            const isActive =
+              item.to === "/" ? pathname === "/" : pathname.startsWith(item.to);
+            return (
+              <Link
+                key={item.to}
+                to={item.to}
+                className={
+                  isActive ? "text-frost" : "transition hover:text-signal"
+                }
+              >
+                {item.label}
+              </Link>
+            );
+          })}
         </nav>
         <div className="grid size-8 place-items-center rounded-full bg-gradient-to-br from-signal/40 to-frost/20 font-mono text-xs ring-1 ring-line">
           RD
