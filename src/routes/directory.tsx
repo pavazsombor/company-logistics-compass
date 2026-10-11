@@ -5,9 +5,9 @@ import { OpsHeader } from "@/components/ops-header";
 export const Route = createFileRoute("/directory")({
   head: () => ({
     meta: [
-      { title: "Directory — TechLogix Ops" },
+      { title: "Directory — TechLogix Kft." },
       { name: "description", content: "Staff directory for TechLogix: find colleagues by name, role, department and shift." },
-      { property: "og:title", content: "Directory — TechLogix Ops" },
+      { property: "og:title", content: "Directory — TechLogix Kft." },
       { property: "og:description", content: "Staff directory for TechLogix." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

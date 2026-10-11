@@ -17,7 +17,7 @@ export function OpsHeader() {
             T
           </div>
           <span className="font-display text-xl tracking-wide">TECHLOGIX</span>
-          <span className="font-mono text-[10px] uppercase tracking-[.2em] text-mist">ops</span>
+          <span className="font-mono text-[10px] uppercase tracking-[.2em] text-mist">kft.</span>
         </Link>
         <div className="flex h-9 max-w-md flex-1 items-center gap-2 bg-panel px-3 ring-1 ring-line">
           <span className="font-mono text-xs text-mist">⌕</span>

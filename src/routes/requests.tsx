@@ -5,9 +5,9 @@ import { OpsHeader } from "@/components/ops-header";
 export const Route = createFileRoute("/requests")({
   head: () => ({
     meta: [
-      { title: "Requests — TechLogix Ops" },
+      { title: "Requests — TechLogix Kft." },
       { name: "description", content: "Submit and track internal requests: leave, equipment, delivery slots and shipment exceptions at TechLogix." },
-      { property: "og:title", content: "Requests — TechLogix Ops" },
+      { property: "og:title", content: "Requests — TechLogix Kft." },
       { property: "og:description", content: "Submit and track internal requests at TechLogix." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
