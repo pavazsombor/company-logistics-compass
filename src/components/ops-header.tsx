@@ -16,7 +16,7 @@ export function OpsHeader() {
           <div className="grid size-8 -skew-x-12 place-items-center bg-signal/90 font-display text-lg text-ink">
             N
           </div>
-          <span className="font-display text-xl tracking-wide">NORTHLINE</span>
+          <span className="font-display text-xl tracking-wide">TECHLOGIX</span>
           <span className="font-mono text-[10px] uppercase tracking-[.2em] text-mist">ops</span>
         </Link>
         <div className="flex h-9 max-w-md flex-1 items-center gap-2 bg-panel px-3 ring-1 ring-line">

@@ -5,10 +5,10 @@ import { OpsHeader } from "@/components/ops-header";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Dispatch Board — Northline Ops" },
-      { name: "description", content: "Live operations board: shipments in transit, dock utilization, open requests and announcements for Northline Logistics." },
-      { property: "og:title", content: "Dispatch Board — Northline Ops" },
-      { property: "og:description", content: "Live operations board for Northline Logistics: shipments, docks, requests and announcements." },
+      { title: "Dispatch Board — TechLogix Ops" },
+      { name: "description", content: "Live operations board: shipments in transit, dock utilization, open requests and announcements for TechLogix." },
+      { property: "og:title", content: "Dispatch Board — TechLogix Ops" },
+      { property: "og:description", content: "Live operations board for TechLogix: shipments, docks, requests and announcements." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
