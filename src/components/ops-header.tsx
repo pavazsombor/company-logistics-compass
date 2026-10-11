@@ -1,4 +1,5 @@
 import { Link, useRouterState } from "@tanstack/react-router";
+import { setLang, useT } from "@/lib/i18n";
 
 const navItems = [
   { to: "/" as const, label: "Board" },
@@ -7,6 +8,7 @@ const navItems = [
 ];
 
 export function OpsHeader() {
+  const { t, lang } = useT();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   return (
@@ -23,7 +25,7 @@ export function OpsHeader() {
           <span className="font-mono text-xs text-mist">⌕</span>
           <input
             type="search"
-            placeholder="Search PO, dock, container, ETA…"
+            placeholder={t("Search PO, dock, container, ETA…")}
             className="w-full bg-transparent text-sm outline-none placeholder:text-mist"
           />
         </div>
@@ -39,11 +41,24 @@ export function OpsHeader() {
                   isActive ? "text-frost" : "transition hover:text-signal"
                 }
               >
-                {item.label}
+                {t(item.label)}
               </Link>
             );
           })}
         </nav>
+        <div className="flex font-mono text-[11px] uppercase tracking-wider ring-1 ring-line" role="group" aria-label="Language">
+          {(["en", "hu"] as const).map((l) => (
+            <button
+              key={l}
+              type="button"
+              onClick={() => setLang(l)}
+              aria-pressed={lang === l}
+              className={lang === l ? "bg-frost px-2.5 py-1.5 text-ink" : "bg-panel px-2.5 py-1.5 text-mist transition hover:text-signal"}
+            >
+              {l === "en" ? "EN" : "HU"}
+            </button>
+          ))}
+        </div>
         <div className="grid size-8 place-items-center rounded-full bg-gradient-to-br from-signal/40 to-frost/20 font-mono text-xs ring-1 ring-line">
           RD
         </div>
