@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
+import { useT } from "@/lib/i18n";
 import { OpsHeader } from "@/components/ops-header";
 
 export const Route = createFileRoute("/")({
@@ -78,6 +79,7 @@ const kpis = [
 ];
 
 function Index() {
+  const { t } = useT();
   const [filter, setFilter] = useState<(typeof statusFilters)[number]>("All 214");
   const activeStatus = statusFilterMap[filter];
   const rows = activeStatus ? shipments.filter((s) => s.status === activeStatus) : shipments;
@@ -95,10 +97,10 @@ function Index() {
           <div className="mb-4 flex flex-wrap items-end justify-between gap-4">
             <div className="animate-[rise_.5s_cubic-bezier(.32,.72,0,1)_both]">
               <p className="font-mono text-[11px] uppercase tracking-[.22em] text-signal">
-                Dispatch Board · Thu 14:02 UTC
+                {t("Dispatch Board · Thu 14:02 UTC")}
               </p>
               <h1 className="mt-1 font-display text-4xl tracking-tight md:text-5xl">
-                SHIFT 03 — TERMINAL B
+                {t("SHIFT 03 — TERMINAL B")}
               </h1>
             </div>
             <div className="flex gap-2 font-mono text-[11px] uppercase tracking-wider">
@@ -112,7 +114,7 @@ function Index() {
                       : "bg-panel px-3 py-1.5 ring-1 ring-line transition hover:text-signal"
                   }
                 >
-                  {f}
+                  {t(f)}
                 </button>
               ))}
             </div>
@@ -130,14 +132,14 @@ function Index() {
                     <span className="absolute -inset-y-8 left-0 w-1/3 animate-[sheen_6s_linear_infinite] bg-gradient-to-r from-frost/10 to-transparent" />
                   </span>
                 )}
-                <p className="font-mono text-[10px] uppercase tracking-[.18em] text-mist">{kpi.label}</p>
+                <p className="font-mono text-[10px] uppercase tracking-[.18em] text-mist">{t(kpi.label)}</p>
                 <p className="mt-2 font-display text-3xl">{kpi.value}</p>
                 {kpi.bar != null ? (
                   <div className="mt-2 h-1 bg-line">
                     <div className="h-full bg-signal" style={{ width: `${kpi.bar}%` }} />
                   </div>
                 ) : (
-                  <p className={`mt-1 font-mono text-[11px] ${kpi.noteClass}`}>{kpi.note}</p>
+                  <p className={`mt-1 font-mono text-[11px] ${kpi.noteClass}`}>{t(kpi.note)}</p>
                 )}
               </div>
             ))}
@@ -148,18 +150,18 @@ function Index() {
           <main className="ring-1 ring-line bg-panel/60 backdrop-blur-md animate-[rise_.5s_cubic-bezier(.32,.72,0,1)_both] [animation-delay:220ms] lg:col-span-8">
             <div className="flex items-center justify-between border-b border-line px-4 py-3">
               <span className="font-mono text-[11px] uppercase tracking-[.18em] text-mist">
-                Active Shipments
+                {t("Active Shipments")}
               </span>
               <span className="font-mono text-[11px] text-signal">
-                LIVE · {String(rows.length).padStart(2, "0")} shown
+                LIVE · {String(rows.length).padStart(2, "0")} {t("shown")}
               </span>
             </div>
             <div className="grid grid-cols-[1fr_.8fr_.5fr_.9fr_.8fr] gap-2 border-b border-line px-4 py-2 font-mono text-[10px] uppercase tracking-wider text-mist">
-              <span>Ref / Route</span>
-              <span>Container</span>
-              <span>Dock</span>
-              <span>ETA</span>
-              <span>Status</span>
+              <span>{t("Ref / Route")}</span>
+              <span>{t("Container")}</span>
+              <span>{t("Dock")}</span>
+              <span>{t("ETA")}</span>
+              <span>{t("Status")}</span>
             </div>
             {rows.map((s, i) => (
               <div
@@ -173,15 +175,15 @@ function Index() {
                 </span>
                 <span className="font-mono text-xs text-mist">{s.container}</span>
                 <span className="font-mono text-xs">{s.dock}</span>
-                <span className="font-mono text-xs">{s.eta}</span>
-                <span className={`font-mono text-xs ${statusColor[s.status]}`}>{s.status}</span>
+                <span className="font-mono text-xs">{t(s.eta)}</span>
+                <span className={`font-mono text-xs ${statusColor[s.status]}`}>{t(s.status)}</span>
               </div>
             ))}
           </main>
 
           <aside className="flex flex-col gap-4 lg:col-span-4">
             <section className="bg-panel/60 p-4 ring-1 ring-line backdrop-blur-md animate-[rise_.5s_cubic-bezier(.32,.72,0,1)_both] [animation-delay:260ms]">
-              <p className="mb-3 font-mono text-[11px] uppercase tracking-[.18em] text-mist">Announcements</p>
+              <p className="mb-3 font-mono text-[11px] uppercase tracking-[.18em] text-mist">{t("Announcements")}</p>
               {announcements.map((a, i) => (
                 <div
                   key={a.title}
@@ -191,7 +193,7 @@ function Index() {
                 >
                   <span className={`mt-2 size-1.5 ${a.tone} ${a.pulse ? "animate-[pulse-dot_2s_ease-in-out_infinite]" : ""}`} />
                   <div>
-                    <p className="text-sm font-medium">{a.title}</p>
+                    <p className="text-sm font-medium">{t(a.title)}</p>
                     <p className="mt-0.5 font-mono text-[11px] text-mist">{a.meta}</p>
                   </div>
                 </div>
@@ -199,7 +201,7 @@ function Index() {
             </section>
 
             <section className="bg-panel/60 p-4 ring-1 ring-line backdrop-blur-md animate-[rise_.5s_cubic-bezier(.32,.72,0,1)_both] [animation-delay:300ms]">
-              <p className="mb-3 font-mono text-[11px] uppercase tracking-[.18em] text-mist">Quick Requests</p>
+              <p className="mb-3 font-mono text-[11px] uppercase tracking-[.18em] text-mist">{t("Quick Requests")}</p>
               <div className="grid grid-cols-2 gap-2">
                 {quickRequests.map((q) => (
                   <a
@@ -207,15 +209,15 @@ function Index() {
                     href={q.to}
                     className="bg-frost/5 px-3 py-2.5 text-left ring-1 ring-line transition hover:bg-signal/10 hover:ring-signal"
                   >
-                    <p className="text-sm font-medium">{q.title}</p>
-                    <p className="font-mono text-[10px] text-mist">{q.meta}</p>
+                    <p className="text-sm font-medium">{t(q.title)}</p>
+                    <p className="font-mono text-[10px] text-mist">{t(q.meta)}</p>
                   </a>
                 ))}
               </div>
             </section>
 
             <section className="bg-panel/60 p-4 ring-1 ring-line backdrop-blur-md animate-[rise_.5s_cubic-bezier(.32,.72,0,1)_both] [animation-delay:340ms]">
-              <p className="mb-3 font-mono text-[11px] uppercase tracking-[.18em] text-mist">Systems</p>
+              <p className="mb-3 font-mono text-[11px] uppercase tracking-[.18em] text-mist">{t("Systems")}</p>
               <div className="flex flex-wrap gap-2 font-mono text-xs">
                 {systems.map((sys) => (
                   <a
