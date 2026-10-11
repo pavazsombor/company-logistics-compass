@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
+import { useT } from "@/lib/i18n";
 import { OpsHeader } from "@/components/ops-header";
 
 export const Route = createFileRoute("/directory")({
   head: () => ({
     meta: [
-      { title: "Directory — TechLogix Ops" },
+      { title: "Directory — TechLogix Kft." },
       { name: "description", content: "Staff directory for TechLogix: find colleagues by name, role, department and shift." },
-      { property: "og:title", content: "Directory — TechLogix Ops" },
+      { property: "og:title", content: "Directory — TechLogix Kft." },
       { property: "og:description", content: "Staff directory for TechLogix." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -40,6 +41,7 @@ const staff: StaffMember[] = [
 const depts = ["All", "Terminal B", "Warehouse A", "Cold Chain", "Transport", "Compliance", "HR", "Safety", "Yard"];
 
 function DirectoryPage() {
+  const { t } = useT();
   const [dept, setDept] = useState("All");
   const [query, setQuery] = useState("");
 
@@ -61,9 +63,9 @@ function DirectoryPage() {
         <div className="mx-auto max-w-[1400px] px-6 pt-6">
           <div className="animate-[rise_.5s_cubic-bezier(.32,.72,0,1)_both]">
             <p className="font-mono text-[11px] uppercase tracking-[.22em] text-signal">
-              People Index · {staff.length} on roster
+              {t("People Index")} · {staff.length} {t("on roster")}
             </p>
-            <h1 className="mt-1 font-display text-4xl tracking-tight md:text-5xl">DIRECTORY</h1>
+            <h1 className="mt-1 font-display text-4xl tracking-tight md:text-5xl">{t("DIRECTORY")}</h1>
           </div>
         </div>
 
@@ -75,7 +77,7 @@ function DirectoryPage() {
                 type="search"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Name or role…"
+                placeholder={t("Name or role…")}
                 className="w-full bg-transparent text-sm outline-none placeholder:text-mist"
               />
             </div>
@@ -90,7 +92,7 @@ function DirectoryPage() {
                       : "bg-panel px-3 py-1.5 ring-1 ring-line transition hover:text-signal"
                   }
                 >
-                  {d}
+                  {t(d)}
                 </button>
               ))}
             </div>
@@ -99,10 +101,10 @@ function DirectoryPage() {
           <section className="ring-1 ring-line bg-panel/60 backdrop-blur-md animate-[rise_.5s_cubic-bezier(.32,.72,0,1)_both] [animation-delay:120ms]">
             <div className="grid grid-cols-[auto_1.6fr_1.4fr_.8fr_.9fr] gap-3 border-b border-line px-4 py-2 font-mono text-[10px] uppercase tracking-wider text-mist">
               <span />
-              <span>Name / Role</span>
-              <span>Department</span>
-              <span>Shift</span>
-              <span>Contact</span>
+              <span>{t("Name / Role")}</span>
+              <span>{t("Department")}</span>
+              <span>{t("Shift")}</span>
+              <span>{t("Contact")}</span>
             </div>
             {rows.map((p, i) => (
               <div
@@ -116,16 +118,16 @@ function DirectoryPage() {
                 </div>
                 <span>
                   <span className="font-medium">{p.name}</span>{" "}
-                  <span className="text-mist text-xs">{p.role}</span>
+                  <span className="text-mist text-xs">{t(p.role)}</span>
                 </span>
-                <span className="font-mono text-xs text-mist">{p.dept}</span>
+                <span className="font-mono text-xs text-mist">{t(p.dept)}</span>
                 <span className="font-mono text-xs">{p.shift}</span>
                 <span className="font-mono text-xs text-signal">{p.contact}</span>
               </div>
             ))}
             {rows.length === 0 && (
               <div className="px-4 py-8 text-center font-mono text-xs text-mist">
-                No matches — adjust the filter or search.
+                {t("No matches — adjust the filter or search.")}
               </div>
             )}
           </section>

@@ -1,3 +1,4 @@
+import type { ErrorComponentProps } from "@tanstack/react-router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
@@ -36,7 +37,7 @@ function NotFoundComponent() {
   );
 }
 
-function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
+function ErrorComponent({ error, reset }: ErrorComponentProps) {
   console.error(error);
   const router = useRouter();
   useEffect(() => {
@@ -79,10 +80,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "TechLogix Ops — Intranet" },
+      { title: "TechLogix Kft. — Intranet" },
       { name: "description", content: "TechLogix internal operations intranet: dispatch board, requests, and staff directory." },
       { name: "author", content: "TechLogix" },
-      { property: "og:title", content: "TechLogix Ops — Intranet" },
+      { property: "og:title", content: "TechLogix Kft. — Intranet" },
       { property: "og:description", content: "TechLogix internal operations intranet." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

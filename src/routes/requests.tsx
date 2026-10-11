@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
+import { useT } from "@/lib/i18n";
 import { OpsHeader } from "@/components/ops-header";
 
 export const Route = createFileRoute("/requests")({
   head: () => ({
     meta: [
-      { title: "Requests — TechLogix Ops" },
+      { title: "Requests — TechLogix Kft." },
       { name: "description", content: "Submit and track internal requests: leave, equipment, delivery slots and shipment exceptions at TechLogix." },
-      { property: "og:title", content: "Requests — TechLogix Ops" },
+      { property: "og:title", content: "Requests — TechLogix Kft." },
       { property: "og:description", content: "Submit and track internal requests at TechLogix." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -50,6 +51,7 @@ const statusColor: Record<OpenRequest["status"], string> = {
 };
 
 function RequestsPage() {
+  const { t } = useT();
   const [requests, setRequests] = useState<OpenRequest[]>(initialRequests);
   const [type, setType] = useState<RequestType>("Leave");
   const [detail, setDetail] = useState("");
@@ -78,15 +80,15 @@ function RequestsPage() {
         <div className="mx-auto max-w-[1400px] px-6 pt-6">
           <div className="animate-[rise_.5s_cubic-bezier(.32,.72,0,1)_both]">
             <p className="font-mono text-[11px] uppercase tracking-[.22em] text-signal">
-              Service Desk · SLA clock running
+              {t("Service Desk · SLA clock running")}
             </p>
-            <h1 className="mt-1 font-display text-4xl tracking-tight md:text-5xl">REQUESTS</h1>
+            <h1 className="mt-1 font-display text-4xl tracking-tight md:text-5xl">{t("REQUESTS")}</h1>
           </div>
         </div>
 
         <div className="mx-auto grid max-w-[1400px] grid-cols-1 gap-6 px-6 py-6 lg:grid-cols-12">
           <section className="ring-1 ring-line bg-panel/60 p-5 backdrop-blur-md animate-[rise_.5s_cubic-bezier(.32,.72,0,1)_both] [animation-delay:60ms] lg:col-span-5">
-            <p className="mb-4 font-mono text-[11px] uppercase tracking-[.18em] text-mist">New Request</p>
+            <p className="mb-4 font-mono text-[11px] uppercase tracking-[.18em] text-mist">{t("New Request")}</p>
             <div className="mb-4 grid grid-cols-2 gap-2">
               {requestTypes.map((r) => (
                 <button
@@ -99,26 +101,26 @@ function RequestsPage() {
                       : "bg-frost/5 px-3 py-2.5 text-left ring-1 ring-line transition hover:ring-signal"
                   }
                 >
-                  <p className="text-sm font-medium">{r.type}</p>
-                  <p className="font-mono text-[10px] text-mist">{r.meta}</p>
+                  <p className="text-sm font-medium">{t(r.type)}</p>
+                  <p className="font-mono text-[10px] text-mist">{t(r.meta)}</p>
                 </button>
               ))}
             </div>
             <form onSubmit={submit} className="flex flex-col gap-3">
               <label className="font-mono text-[10px] uppercase tracking-[.18em] text-mist">
-                Details
+                {t("Details")}
                 <textarea
                   value={detail}
                   onChange={(e) => setDetail(e.target.value)}
                   rows={4}
                   placeholder={
                     type === "Leave"
-                      ? "Dates, shift, coverage plan…"
+                      ? t("Dates, shift, coverage plan…")
                       : type === "Equipment"
-                        ? "Item, quantity, needed by…"
+                        ? t("Item, quantity, needed by…")
                         : type === "Delivery Slot"
-                          ? "Dock, date, time window…"
-                          : "Reference, what happened, urgency…"
+                          ? t("Dock, date, time window…")
+                          : t("Reference, what happened, urgency…")
                   }
                   className="mt-2 w-full resize-none bg-ink/60 p-3 text-sm text-frost outline-none ring-1 ring-line transition placeholder:text-mist focus:ring-signal"
                 />
@@ -127,11 +129,11 @@ function RequestsPage() {
                 type="submit"
                 className="bg-frost px-4 py-2.5 font-mono text-xs uppercase tracking-wider text-ink transition hover:bg-signal"
               >
-                Submit request →
+                {t("Submit request →")}
               </button>
               {submitted && (
                 <p className="font-mono text-[11px] text-signal">
-                  Filed as {submitted} · routed to shift lead
+                  {t("Filed as")} {submitted} · {t("routed to shift lead")}
                 </p>
               )}
             </form>
@@ -140,17 +142,17 @@ function RequestsPage() {
           <section className="ring-1 ring-line bg-panel/60 backdrop-blur-md animate-[rise_.5s_cubic-bezier(.32,.72,0,1)_both] [animation-delay:120ms] lg:col-span-7">
             <div className="flex items-center justify-between border-b border-line px-4 py-3">
               <span className="font-mono text-[11px] uppercase tracking-[.18em] text-mist">
-                Open Queue
+                {t("Open Queue")}
               </span>
               <span className="font-mono text-[11px] text-warn">
-                {requests.filter((r) => r.status === "BREACHING SLA").length} breaching SLA
+                {requests.filter((r) => r.status === "BREACHING SLA").length} {t("breaching SLA")}
               </span>
             </div>
             <div className="grid grid-cols-[.8fr_1.4fr_1fr_.7fr] gap-2 border-b border-line px-4 py-2 font-mono text-[10px] uppercase tracking-wider text-mist">
-              <span>Ref</span>
-              <span>Type / Detail</span>
-              <span>Requester</span>
-              <span>Status</span>
+              <span>{t("Ref")}</span>
+              <span>{t("Type / Detail")}</span>
+              <span>{t("Requester")}</span>
+              <span>{t("Status")}</span>
             </div>
             {requests.map((r, i) => (
               <div
@@ -161,11 +163,11 @@ function RequestsPage() {
               >
                 <span className="font-mono text-xs">{r.id}</span>
                 <span>
-                  <span className="font-medium">{r.type}</span>{" "}
+                  <span className="font-medium">{t(r.type)}</span>{" "}
                   <span className="text-mist text-xs">{r.detail}</span>
                 </span>
-                <span className="text-mist text-xs">{r.requester}</span>
-                <span className={`font-mono text-xs ${statusColor[r.status]}`}>{r.status}</span>
+                <span className="text-mist text-xs">{t(r.requester)}</span>
+                <span className={`font-mono text-xs ${statusColor[r.status]}`}>{t(r.status)}</span>
               </div>
             ))}
           </section>
