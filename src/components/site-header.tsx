@@ -13,7 +13,7 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-10 border-b border-line bg-ink/70 backdrop-blur-xl">
-      <div className="mx-auto flex h-16 max-w-[1200px] items-center gap-8 px-6">
+      <div className="mx-auto flex h-16 max-w-[1200px] flex-wrap items-center gap-x-6 gap-y-1 px-6 py-2">
         <Link to="/site" className="flex items-center gap-3">
           <div className="grid size-8 -skew-x-12 place-items-center bg-signal/90 font-display text-lg text-ink">
             T
@@ -21,7 +21,7 @@ export function SiteHeader() {
           <span className="font-display text-xl tracking-wide">TECHLOGIX</span>
           <span className="font-mono text-[10px] uppercase tracking-[.2em] text-mist">kft.</span>
         </Link>
-        <nav className="hidden items-center gap-6 text-sm text-mist md:flex">
+        <nav className="order-3 flex w-full items-center gap-5 text-sm text-mist md:order-none md:w-auto md:gap-6">
           {navItems.map((item) => {
             const isActive =
               item.to === "/site" ? pathname === "/site" : pathname.startsWith(item.to);
@@ -52,7 +52,7 @@ export function SiteHeader() {
           </div>
           <Link
             to="/"
-            className="hidden bg-panel px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider text-mist ring-1 ring-line transition hover:text-signal md:block"
+            className="bg-panel px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider text-mist ring-1 ring-line transition hover:text-signal"
           >
             {t("Intranet →")}
           </Link>
