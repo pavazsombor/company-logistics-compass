@@ -12,6 +12,9 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DirectoryRouteImport } from './routes/directory'
 import { Route as RequestsRouteImport } from './routes/requests'
+import { Route as SiteIndexRouteImport } from './routes/site.index'
+import { Route as SiteAboutRouteImport } from './routes/site.about'
+import { Route as SiteContactRouteImport } from './routes/site.contact'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -28,35 +31,76 @@ const RequestsRoute = RequestsRouteImport.update({
   path: '/requests',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SiteIndexRoute = SiteIndexRouteImport.update({
+  id: '/site/',
+  path: '/site/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SiteAboutRoute = SiteAboutRouteImport.update({
+  id: '/site/about',
+  path: '/site/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SiteContactRoute = SiteContactRouteImport.update({
+  id: '/site/contact',
+  path: '/site/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/directory': typeof DirectoryRoute
   '/requests': typeof RequestsRoute
+  '/site/about': typeof SiteAboutRoute
+  '/site/contact': typeof SiteContactRoute
+  '/site/': typeof SiteIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/directory': typeof DirectoryRoute
   '/requests': typeof RequestsRoute
+  '/site/about': typeof SiteAboutRoute
+  '/site/contact': typeof SiteContactRoute
+  '/site': typeof SiteIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/directory': typeof DirectoryRoute
   '/requests': typeof RequestsRoute
+  '/site/about': typeof SiteAboutRoute
+  '/site/contact': typeof SiteContactRoute
+  '/site/': typeof SiteIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/directory' | '/requests'
+  fullPaths:
+    | '/'
+    | '/directory'
+    | '/requests'
+    | '/site/about'
+    | '/site/contact'
+    | '/site/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/directory' | '/requests'
-  id: '__root__' | '/' | '/directory' | '/requests'
+  to:
+    '/' | '/directory' | '/requests' | '/site/about' | '/site/contact' | '/site'
+  id:
+    | '__root__'
+    | '/'
+    | '/directory'
+    | '/requests'
+    | '/site/about'
+    | '/site/contact'
+    | '/site/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DirectoryRoute: typeof DirectoryRoute
   RequestsRoute: typeof RequestsRoute
+  SiteAboutRoute: typeof SiteAboutRoute
+  SiteContactRoute: typeof SiteContactRoute
+  SiteIndexRoute: typeof SiteIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -82,6 +126,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RequestsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/site/': {
+      id: '/site/'
+      path: '/site'
+      fullPath: '/site/'
+      preLoaderRoute: typeof SiteIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/site/about': {
+      id: '/site/about'
+      path: '/site/about'
+      fullPath: '/site/about'
+      preLoaderRoute: typeof SiteAboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/site/contact': {
+      id: '/site/contact'
+      path: '/site/contact'
+      fullPath: '/site/contact'
+      preLoaderRoute: typeof SiteContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -89,6 +154,9 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DirectoryRoute: DirectoryRoute,
   RequestsRoute: RequestsRoute,
+  SiteAboutRoute: SiteAboutRoute,
+  SiteContactRoute: SiteContactRoute,
+  SiteIndexRoute: SiteIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

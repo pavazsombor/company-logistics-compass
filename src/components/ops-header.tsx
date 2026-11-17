@@ -59,6 +59,12 @@ export function OpsHeader() {
             </button>
           ))}
         </div>
+        <Link
+          to="/site"
+          className="hidden bg-panel px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider text-mist ring-1 ring-line transition hover:text-signal md:block"
+        >
+          {t("Website →")}
+        </Link>
         <div className="grid size-8 place-items-center rounded-full bg-gradient-to-br from-signal/40 to-frost/20 font-mono text-xs ring-1 ring-line">
           RD
         </div>
